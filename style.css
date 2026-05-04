@@ -57,3 +57,32 @@ body {
   font-size: 1.2rem;
   margin-top: 20px;
 }
+
+.hidden {
+  display: none;
+}
+
+#win-message {
+  margin-top: 30px;
+  font-size: 1.5rem;
+}
+
+#win-message h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+#restart-btn {
+  margin-top: 15px;
+  padding: 10px 30px;
+  font-size: 1rem;
+  background: #0f3460;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+#restart-btn:hover {
+  background: #e94560;
+}

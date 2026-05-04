@@ -2,6 +2,7 @@ const cardSymbols = ['🍎', '🍌', '🍇', '🍓', '🍒', '🍑', '🥝', '�
 let cards = [...cardSymbols, ...cardSymbols];
 
 let flippedCards = [];
+let matchedPairs = 0;
 let lockBoard = false;
 let moves = 0;
 let timer = 0;
@@ -13,6 +14,11 @@ function startTimer() {
     timer++;
     document.getElementById('timer').textContent = timer;
   }, 1000);
+}
+
+function stopTimer() {
+  clearInterval(timerInterval);
+  timerInterval = null;
 }
 
 function shuffleCards() {
@@ -57,7 +63,11 @@ function checkMatch() {
   const matched = card1.dataset.symbol === card2.dataset.symbol;
 
   if (matched) {
+    matchedPairs++;
     resetFlipped();
+    if (matchedPairs === cardSymbols.length) {
+      showWinMessage();
+    }
   } else {
     setTimeout(() => {
       card1.querySelector('.card-inner').style.transform = '';
@@ -67,9 +77,30 @@ function checkMatch() {
   }
 }
 
+function showWinMessage() {
+  stopTimer();
+  document.getElementById('final-time').textContent = timer;
+  document.getElementById('final-moves').textContent = moves;
+  document.getElementById('win-message').classList.remove('hidden');
+}
+
 function resetFlipped() {
   flippedCards = [];
   lockBoard = false;
+}
+
+function resetGame() {
+  matchedPairs = 0;
+  moves = 0;
+  timer = 0;
+  flippedCards = [];
+  lockBoard = false;
+  document.getElementById('timer').textContent = 0;
+  document.getElementById('moves').textContent = 0;
+  document.getElementById('win-message').classList.add('hidden');
+  stopTimer();
+  cards = [...cardSymbols, ...cardSymbols];
+  renderBoard();
 }
 
 function renderBoard() {
@@ -83,5 +114,7 @@ function renderBoard() {
     board.appendChild(card);
   });
 }
+
+document.getElementById('restart-btn').addEventListener('click', resetGame);
 
 renderBoard();

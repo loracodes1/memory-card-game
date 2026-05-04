@@ -49,3 +49,11 @@ body {
   background: #0f3460;
   transform: rotateY(180deg);
 }
+
+#scoreboard {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  font-size: 1.2rem;
+  margin-top: 20px;
+}

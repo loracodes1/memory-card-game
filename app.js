@@ -3,6 +3,17 @@ let cards = [...cardSymbols, ...cardSymbols];
 
 let flippedCards = [];
 let lockBoard = false;
+let moves = 0;
+let timer = 0;
+let timerInterval = null;
+
+function startTimer() {
+  if (timerInterval) return;
+  timerInterval = setInterval(() => {
+    timer++;
+    document.getElementById('timer').textContent = timer;
+  }, 1000);
+}
 
 function shuffleCards() {
   cards.sort(() => Math.random() - 0.5);
@@ -28,11 +39,15 @@ function flipCard(card) {
   if (lockBoard) return;
   if (flippedCards.includes(card)) return;
 
+  startTimer();
+
   card.querySelector('.card-inner').style.transform = 'rotateY(180deg)';
   flippedCards.push(card);
 
   if (flippedCards.length === 2) {
     lockBoard = true;
+    moves++;
+    document.getElementById('moves').textContent = moves;
     checkMatch();
   }
 }
